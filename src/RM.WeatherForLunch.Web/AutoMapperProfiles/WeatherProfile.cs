@@ -9,6 +9,7 @@ namespace RM.WeatherForLunch.Web.AutoMapperProfiles
         public WeatherProfile()
         {
             CreateMap<LunchForcast, LunchNowViewModel>();
+            CreateMap<LunchForcast, WeatherInformationViewModel>();
         }
     }
 }

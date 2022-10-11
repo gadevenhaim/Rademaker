@@ -9,7 +9,7 @@ public class AppDbContext : DbContext
 {
     private const string databaseName = "LunchWeather";
 
-    public DbSet<LunchForcast>? LunchForcasts { get; set; }
+    public DbSet<LunchForcast> LunchForcasts => Set<LunchForcast>();
 
     public AppDbContext([NotNull]DbContextOptions<AppDbContext> options) : base(options)
     {

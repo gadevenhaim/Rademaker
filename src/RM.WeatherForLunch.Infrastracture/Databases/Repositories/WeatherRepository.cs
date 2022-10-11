@@ -18,16 +18,16 @@ public class WeatherRepository : IWeatherRepository
         return dbContext.LunchForcasts?.Find(id);
     }
 
-    public List<LunchForcast>? GetAll(string city)
+    public Task<List<LunchForcast>> GetAllAsync(string city)
     {
-        return dbContext.LunchForcasts?
+        return dbContext.LunchForcasts
             .Where(lunchForcast => lunchForcast.City == city)
-            .ToList();
+            .ToListAsync();
     }
 
     public LunchForcast? GetLatestToday(string city)
     {
-        return dbContext.LunchForcasts?            
+        return dbContext.LunchForcasts            
             .LastOrDefault(lunchForcast => 
                 lunchForcast.City == city &&
                 lunchForcast.DateCreated.Date.Equals(DateTime.UtcNow.Date));

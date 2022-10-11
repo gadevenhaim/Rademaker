@@ -20,7 +20,7 @@ public class LunchForcastService : ILunchForcastService
         this.weatherRepository = weatherRepository;
     }
 
-    public async Task<LunchForcast> GetLunchForcast(string city = "")
+    public async Task<LunchForcast> GetLunchForcast(string city)
     {
         LunchForcast? lunchForcast = null;
         var lunchForcastFromDb = weatherRepository.GetLatestToday(city);
@@ -39,6 +39,11 @@ public class LunchForcastService : ILunchForcastService
         }
 
         return lunchForcast;
+    }
+
+    public async Task<List<LunchForcast>> GetHistoricLunchForcasts(string city)
+    {
+        return await weatherRepository.GetAllAsync(city);
     }
 
     private LunchForcast MapLunchForcast(CurrentCondition currentCondition)
