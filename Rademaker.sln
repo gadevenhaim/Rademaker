@@ -5,7 +5,7 @@ VisualStudioVersion = 17.3.32922.545
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RM.WeatherForLunch.Core", "src\RM.WeatherForLunch.Core\RM.WeatherForLunch.Core.csproj", "{FAB220F8-B80C-49DF-9E97-39FA65E7FB3B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RM.WeatherForLunch.Infrastrature", "src\RM.WeatherForLunch.Infrastrature\RM.WeatherForLunch.Infrastrature.csproj", "{5BD75426-E2DF-4A8F-AC9A-98B6F9291BAB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RM.WeatherForLunch.Infrastracture", "src\RM.WeatherForLunch.Infrastracture\RM.WeatherForLunch.Infrastracture.csproj", "{5BD75426-E2DF-4A8F-AC9A-98B6F9291BAB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RM.WeatherForLunch.Web", "src\RM.WeatherForLunch.Web\RM.WeatherForLunch.Web.csproj", "{01B05038-E805-4CD1-9E8C-FF2F0870677C}"
 EndProject
