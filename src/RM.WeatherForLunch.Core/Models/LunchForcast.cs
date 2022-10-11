@@ -11,6 +11,6 @@ public class LunchForcast
     public decimal HumidityPercentage { get; set; }
     public DateTime ObservationTime { get; set; }
     public bool CanSitOutside { get; set; }
-    public DateTime DateCreated { get; set; } = DateTime.UtcNow;
+    public DateTime DateUpdated { get; set; } = DateTime.UtcNow;
     public string? City { get; set; }
 }

@@ -30,7 +30,7 @@ public class WeatherRepository : IWeatherRepository
         return dbContext.LunchForcasts            
             .LastOrDefault(lunchForcast => 
                 lunchForcast.City == city &&
-                lunchForcast.DateCreated.Date.Equals(DateTime.UtcNow.Date));
+                lunchForcast.DateUpdated.Date.Equals(DateTime.UtcNow.Date));
     }
 
     public async Task<LunchForcast?> GetLunchForcastByDate(string city, DateTime date)
@@ -44,7 +44,13 @@ public class WeatherRepository : IWeatherRepository
 
     public void Add(LunchForcast lunchForcast)
     {
-        dbContext.LunchForcasts?.Add(lunchForcast);
+        dbContext.LunchForcasts.Add(lunchForcast);
+        dbContext.SaveChanges();
+    }
+
+    public void Update(LunchForcast lunchForcast)
+    {
+        dbContext.LunchForcasts.Update(lunchForcast);
         dbContext.SaveChanges();
     }
 }

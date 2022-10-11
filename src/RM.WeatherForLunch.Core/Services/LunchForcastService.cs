@@ -24,7 +24,7 @@ public class LunchForcastService : ILunchForcastService
     {
         LunchForcast? lunchForcast = null;
         var lunchForcastFromDb = weatherRepository.GetLatestToday(city);
-        if (lunchForcastFromDb != null && lunchForcastFromDb.DateCreated.AddMinutes(5) >= DateTime.UtcNow)
+        if (lunchForcastFromDb != null && lunchForcastFromDb.DateUpdated.AddSeconds(30) >= DateTime.UtcNow)
         {
             lunchForcast = lunchForcastFromDb;
         }
@@ -35,7 +35,17 @@ public class LunchForcastService : ILunchForcastService
             if (currentCondition == null) throw new Exception($"could not find weather for city: {city}");
             lunchForcast = MapLunchForcast(currentCondition);
             lunchForcast.City = city;
-            weatherRepository.Add(lunchForcast);
+
+            var existingLunchForcast = await weatherRepository.GetLunchForcastByDate(city, lunchForcast.ObservationTime);
+            if (existingLunchForcast == null)
+            {
+                weatherRepository.Add(lunchForcast);
+            }
+            else
+            {
+                existingLunchForcast.DateUpdated = DateTime.UtcNow;
+                weatherRepository.Update(existingLunchForcast);
+            }
         }
 
         return lunchForcast;
@@ -78,7 +88,7 @@ public class LunchForcastService : ILunchForcastService
 
     public async Task<LunchForcast?> GetLunchForcastByDateAndTime(string city, DateTime dateTime)
     {
-        var lunchForcast = await weatherRepository.GetLunchForcastByDate(city, dateTime);        
+        var lunchForcast = await weatherRepository.GetLunchForcastByDate(city, dateTime);
         return lunchForcast;
     }
 }

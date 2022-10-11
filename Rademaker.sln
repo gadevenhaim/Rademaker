@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RM.WeatherForLunch.Core", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RM.WeatherForLunch.Infrastracture", "src\RM.WeatherForLunch.Infrastracture\RM.WeatherForLunch.Infrastracture.csproj", "{5BD75426-E2DF-4A8F-AC9A-98B6F9291BAB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RM.WeatherForLunch.Web", "src\RM.WeatherForLunch.Web\RM.WeatherForLunch.Web.csproj", "{01B05038-E805-4CD1-9E8C-FF2F0870677C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RM.WeatherForLunch.API", "src\RM.WeatherForLunch.API\RM.WeatherForLunch.API.csproj", "{01B05038-E805-4CD1-9E8C-FF2F0870677C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{014552CC-48A4-46BB-903E-B26084E911A6}"
 EndProject

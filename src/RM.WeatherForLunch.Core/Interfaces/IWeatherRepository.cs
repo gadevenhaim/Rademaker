@@ -10,4 +10,5 @@ public interface IWeatherRepository
     LunchForcast? GetLatestToday(string city);
     Task<LunchForcast?> GetLunchForcastByDate(string city, DateTime date);
     void Add(LunchForcast lunchForcast);
+    void Update(LunchForcast lunchForcast);
 }
