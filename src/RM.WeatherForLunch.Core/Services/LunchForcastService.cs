@@ -76,5 +76,9 @@ public class LunchForcastService : ILunchForcastService
         return true;
     }
 
-
+    public async Task<LunchForcast?> GetLunchForcastByDateAndTime(string city, DateTime dateTime)
+    {
+        var lunchForcast = await weatherRepository.GetLunchForcastByDate(city, dateTime);        
+        return lunchForcast;
+    }
 }

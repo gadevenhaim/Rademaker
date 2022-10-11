@@ -8,6 +8,6 @@ public interface IWeatherRepository
     LunchForcast? Get(int id);
     Task<List<LunchForcast>> GetAllAsync(string city);
     LunchForcast? GetLatestToday(string city);
-    LunchForcast? GetLunchForcastByDate(string city, DateTime date);
+    Task<LunchForcast?> GetLunchForcastByDate(string city, DateTime date);
     void Add(LunchForcast lunchForcast);
 }

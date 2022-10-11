@@ -33,13 +33,13 @@ public class WeatherRepository : IWeatherRepository
                 lunchForcast.DateCreated.Date.Equals(DateTime.UtcNow.Date));
     }
 
-    public LunchForcast? GetLunchForcastByDate(string city, DateTime date)
+    public async Task<LunchForcast?> GetLunchForcastByDate(string city, DateTime date)
     {
-        return dbContext.LunchForcasts?.
+        return await dbContext.LunchForcasts.
             Where(lunchForcast => 
                 lunchForcast.City == city &&
                 lunchForcast.ObservationTime == date)
-            .FirstOrDefault();
+            .FirstOrDefaultAsync();
     }
 
     public void Add(LunchForcast lunchForcast)
