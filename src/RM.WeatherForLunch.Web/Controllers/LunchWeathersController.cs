@@ -19,10 +19,10 @@ namespace RM.WeatherForLunch.Web.Controllers
         }
         
         [HttpGet("{city}/current")]
-        public async Task<LunchNowViewModel> Get(string city, [FromServices] ILunchOutsideService lunchOutsideService)
+        public async Task<LunchNowViewModel> Get(string city, [FromServices] ILunchForcastService lunchOutsideService)
         {
             if (city.Contains(' ')) { city = city.Replace(" ", "+"); }
-            var lunchState = await lunchOutsideService.GetLunchState(city);
+            var lunchState = await lunchOutsideService.GetLunchForcast(city);
             if (lunchState == null) return (LunchNowViewModel)Results.BadRequest("Could not retrieve the required information");
 
             return mapper.Map<LunchNowViewModel>(lunchState);

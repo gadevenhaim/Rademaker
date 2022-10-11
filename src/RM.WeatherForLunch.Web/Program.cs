@@ -1,5 +1,6 @@
 using RM.WeatherForLunch.Core.Base;
 using RM.WeatherForLunch.Infrastracture.Base;
+using RM.WeatherForLunch.Infrastracture.Databases;
 using RM.WeatherForLunch.Web.AutoMapperProfiles;
 using RM.WeatherForLunch.Web.Middlewares;
 
@@ -17,6 +18,8 @@ builder.Services.AddHttpClient();
 builder.Services.RegisterDependencies(
     typeof(CoreAssembly).Assembly,
     typeof(InfrastructureAssembly).Assembly);
+
+builder.Services.AddDbContext<AppDbContext>();
 
 var app = builder.Build();
 

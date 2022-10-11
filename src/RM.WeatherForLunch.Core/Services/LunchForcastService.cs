@@ -4,32 +4,46 @@ using RM.WeatherForLunch.Core.Models;
 
 namespace RM.WeatherForLunch.Core.Services;
 
-public class LunchOutsideService : ILunchOutsideService
+public class LunchForcastService : ILunchForcastService
 {
     private readonly IWeatherAPI weatherAPI;
-    // TODO: add to appsettings
+    private readonly IWeatherRepository weatherRepository;
+
+    // TODO: add to settings
     private decimal maximumCloudsCover = 50;
     private decimal maximumPrecipitationInMM = 0.1M;
     private decimal minimumTemperature = 18;
 
-    public LunchOutsideService(IWeatherAPI weatherAPI)
+    public LunchForcastService(IWeatherAPI weatherAPI, IWeatherRepository weatherRepository)
     {
         this.weatherAPI = weatherAPI;
+        this.weatherRepository = weatherRepository;
     }
 
-    public async Task<LunchState> GetLunchState(string city = "")
+    public async Task<LunchForcast> GetLunchForcast(string city = "")
     {
-        var forcast = await weatherAPI.GetWeatherAsync(city);
-        var currentCondition = forcast.CurrentConditions?.FirstOrDefault();
-        if (currentCondition == null) throw new Exception($"could not find weather for city: {city}");
-        var lunchState = MapLunchState(currentCondition);
+        LunchForcast? lunchForcast = null;
+        var lunchForcastFromDb = weatherRepository.GetLatestToday(city);
+        if (lunchForcastFromDb != null && lunchForcastFromDb.DateCreated.AddMinutes(5) >= DateTime.UtcNow)
+        {
+            lunchForcast = lunchForcastFromDb;
+        }
+        else
+        {
+            var forcast = await weatherAPI.GetWeatherAsync(city);
+            var currentCondition = forcast.CurrentConditions?.FirstOrDefault();
+            if (currentCondition == null) throw new Exception($"could not find weather for city: {city}");
+            lunchForcast = MapLunchForcast(currentCondition);
+            lunchForcast.City = city;
+            weatherRepository.Add(lunchForcast);
+        }
 
-        return lunchState;
+        return lunchForcast;
     }
 
-    private LunchState MapLunchState(CurrentCondition currentCondition)
+    private LunchForcast MapLunchForcast(CurrentCondition currentCondition)
     {
-        var lunchState = new LunchState()
+        var lunchState = new LunchForcast()
         {
             TemperatureCelsius = decimal.TryParse(currentCondition.temp_C, out decimal temperature) ? temperature : 0,
             CloudsCoverPercentage = decimal.TryParse(currentCondition.cloudcover, out decimal cloudcover) ? cloudcover : 0,
@@ -44,7 +58,7 @@ public class LunchOutsideService : ILunchOutsideService
         return lunchState;
     }
 
-    private bool CanSitOutsideValidator(LunchState lunchState)
+    private bool CanSitOutsideValidator(LunchForcast lunchState)
     {
         if (lunchState == null) return false;
 
