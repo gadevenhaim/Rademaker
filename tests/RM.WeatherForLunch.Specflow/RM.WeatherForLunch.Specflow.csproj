@@ -20,4 +20,8 @@
     <Folder Include="Support\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\RM.WeatherForLunch.Core\RM.WeatherForLunch.Core.csproj" />
+  </ItemGroup>
+
 </Project>
